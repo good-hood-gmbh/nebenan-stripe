@@ -1,12 +1,11 @@
-import config from 'uni-config';
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { IbanElement } from 'react-stripe-elements';
-import { connectStripe, StripeComponent } from '../stripe';
 
-const { iban: ibanConfig } = config.client.stripe;
+import connectStripe from '../connect';
+import StripeComponent from '../base';
 
 
 class StripeIBAN extends StripeComponent {
@@ -26,12 +25,12 @@ class StripeIBAN extends StripeComponent {
   }
 
   render() {
-    const { label, children } = this.props;
+    const { label, options, children } = this.props;
     const error = this.getError();
 
     const className = classNames('c-stripe_iban', this.props.className);
     const inputClassName = classNames('ui-input', { 'ui-input-error': error });
-    const options = { ...this.getDefaultOptions(), ...ibanConfig };
+    const paymentProps = { ...this.getDefaultOptions(), ...options };
 
     let labelNode;
     if (label) labelNode = <strong className="ui-label">{label}</strong>;
@@ -42,11 +41,7 @@ class StripeIBAN extends StripeComponent {
     return (
       <label className={className}>
         {labelNode}
-        <IbanElement
-          {...options}
-          onChange={this.handleChange}
-          className={inputClassName}
-        />
+        <IbanElement {...paymentProps} className={inputClassName} onChange={this.handleChange} />
         {children}
         {errorNode}
       </label>
@@ -60,6 +55,7 @@ StripeIBAN.propTypes = {
   children: PropTypes.node,
 
   owner: PropTypes.object.isRequired,
+  options: PropTypes.object.isRequired,
 
   label: PropTypes.node,
 };

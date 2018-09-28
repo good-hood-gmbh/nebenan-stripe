@@ -1,4 +1,3 @@
-import config from 'uni-config';
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
@@ -46,7 +45,7 @@ class Stripe extends PureComponent {
   }
 
   handleLoad() {
-    this.stripe = global.Stripe(config.client.stripe.token);
+    this.stripe = global.Stripe(this.props.token);
     if (metricsConnection) {
       restoreStripeTracking(this.stripe, metricsConnection);
       metricsConnection = null;
@@ -81,8 +80,7 @@ Stripe.propTypes = {
   children: PropTypes.node,
   onLoad: PropTypes.func,
   onError: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
-export { default as connectStripe } from './wrapper';
-export { default as StripeComponent } from './base';
 export default Stripe;

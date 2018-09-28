@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { CardElement } from 'react-stripe-elements';
-import { connectStripe, StripeComponent } from '../stripe';
+
+import connectStripe from '../connect';
+import StripeComponent from '../base';
 
 
 class StripeCard extends StripeComponent {
@@ -13,7 +15,7 @@ class StripeCard extends StripeComponent {
 
     const className = classNames('c-stripe_card', this.props.className);
     const inputClassName = classNames('ui-input', { 'ui-input-error': error });
-    const options = this.getDefaultOptions();
+    const paymentProps = this.getDefaultOptions();
 
     let labelNode;
     if (label) labelNode = <strong className="ui-label">{label}</strong>;
@@ -24,11 +26,7 @@ class StripeCard extends StripeComponent {
     return (
       <label className={className}>
         {labelNode}
-        <CardElement
-          {...options}
-          onChange={this.handleChange}
-          className={inputClassName}
-        />
+        <CardElement {...paymentProps} className={inputClassName} onChange={this.handleChange} />
         {children}
         {errorNode}
       </label>

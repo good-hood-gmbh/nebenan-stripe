@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { bindTo, invoke } from 'nebenan-helpers/lib/utils';
+import { bindTo, invoke } from '../utils';
 
 
 class StripeComponent extends PureComponent {
