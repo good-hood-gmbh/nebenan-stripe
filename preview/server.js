@@ -1,7 +1,5 @@
 require('babel-register')({ extensions: ['.es'] });
 const app = require('express')();
-const statis = require('serve-static');
-const morgan = require('morgan');
 
 const React = require('react');
 const { renderToString } = require('react-dom/server');
@@ -10,16 +8,15 @@ const match = require('react-router/lib/match');
 const RouterContext = require('react-router/lib/RouterContext');
 const createRouter = require('./router').default;
 const Error404 = require('./containers/error404').default;
-const MicroHelmet = require('../lib/micro_helmet').default;
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 
-const getHTML = (meta, content) => (`<!DOCTYPE html>
+const getHTML = (content) => (`<!DOCTYPE html>
 <html lang="en-US">
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>${meta && meta.title ? meta.title : 'React Nebenan UI Components'}</title>
+    <title>Nebenan.de React form components</title>
     <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, width=device-width, shrink-to-fit=no" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
@@ -40,9 +37,8 @@ const renderApp = (req, res, next) => {
 
     const Component = React.createElement(RouterContext, props);
     const content = renderToString(Component);
-    const meta = MicroHelmet.rewind();
 
-    res.status(statusCode).send(getHTML(meta, content));
+    res.status(statusCode).send(getHTML(content));
   };
 
   const matchPage = (error, redirect, props) => {
@@ -65,10 +61,8 @@ const renderApp = (req, res, next) => {
 
 app.set('port', port);
 
-const emojis = statis(`${__dirname}/../node_modules/emojione-assets/png/`, { redirect: false });
-app.use(morgan('dev'));
-app.use(statis(`${__dirname}/public`, { redirect: false }));
-app.use('/images/emojis-v4.0.0', emojis);
+app.use(require('morgan')('dev'));
+app.use(require('serve-static')(`${__dirname}/public`, { redirect: false }));
 
 app.use(renderApp);
 app.get('*', (req, res) => res.send('Unhandled request'));

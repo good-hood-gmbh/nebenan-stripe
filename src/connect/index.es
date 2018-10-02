@@ -22,8 +22,12 @@ export default (WrappedComponent) => {
 
     render() {
       const { localeData: data } = this.context;
+
+      let locale;
+      if (data) locale = data.type;
+
       return (
-        <Elements locale={data.type} fonts={fonts}>
+        <Elements {...{ locale, fonts }}>
           <InjectedComponent {...this.props} ref={(el) => { this.proxiedRef = el; }} />
         </Elements>
       );

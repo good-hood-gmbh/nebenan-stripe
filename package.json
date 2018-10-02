@@ -1,6 +1,6 @@
 {
   "name": "nebenan-stripe",
-  "description": "Use Stripe React UI Elements without going insane",
+  "description": "Use React Stripe Elements without going insane",
   "author": "Nebenan.de <max@nebenan.de>",
   "license": "SEE LICENSE IN LICENSE FILE",
   "readmeFilename": "README.md",
@@ -42,7 +42,7 @@
     "enzyme": "^3.6.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "errorhandler": "1.5.0",
-    "eslint": "^5.6.0",
+    "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
@@ -71,7 +71,7 @@
     "vinyl-source-stream": "2.0.0"
   },
   "peerDependencies": {
-    "react": "^16.4.2",
+    "react": "^16.5.2",
     "prop-types": "^15.6.2",
     "classnames": "^2.2.6",
     "nebenan-ui-kit": "^2.3.0"

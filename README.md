@@ -1,4 +1,4 @@
 nebenan-stripe
 ==================
 
-Use Stripe React UI Elements without going insane
+Use React Stripe Elements without going insane
