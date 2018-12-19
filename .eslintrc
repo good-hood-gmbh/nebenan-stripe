@@ -24,7 +24,7 @@
     "consistent-return": "off",
     "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
     "no-param-reassign": ["error", { "props": false }],
-    "class-methods-use-this": "off", // can be enabled after coffee->es6 migration is complete
+    "class-methods-use-this": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off", // forces to write illegible code
     "function-paren-newline": "off", // forces to write illegible code
@@ -64,7 +64,6 @@
     "react/destructuring-assignment": "off", // bugged
     "react/jsx-one-expression-per-line": "off",
     "react/no-this-in-sfc": "off", // broken
-    "react/jsx-no-target-blank": "off",
 
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/anchor-has-content": "off",
