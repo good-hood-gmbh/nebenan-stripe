@@ -4,18 +4,10 @@ import PropTypes from 'prop-types';
 import Script from 'react-load-script';
 import { StripeProvider } from 'react-stripe-elements';
 
-import {
-  delay,
-  disableStripeTracking,
-  restoreStripeTracking,
-  destroyStripeControllers,
-  destroyStripeMetrics,
-} from './utils';
+import { delay, destroyStripeControllers } from './utils';
 
 
 const url = 'https://js.stripe.com/v3/';
-let metricsConnection = null; // Stripe.js is a singleton, ok with having one for all instances
-
 
 // FYI: use only one <Stripe> per form. It will work with more, but consume more memory.
 class Stripe extends PureComponent {
@@ -28,11 +20,6 @@ class Stripe extends PureComponent {
   componentWillUnmount() {
     const cleanup = () => {
       destroyStripeControllers(this.stripe);
-      const { length: framesCount } = document.querySelectorAll('iframe[name^=__privateStripe]');
-      if (framesCount === 1) {
-        metricsConnection = disableStripeTracking(this.stripe);
-        destroyStripeMetrics(this.stripe);
-      }
       delete this.stripe;
     };
     delay(cleanup);
@@ -46,10 +33,6 @@ class Stripe extends PureComponent {
 
   handleLoad() {
     this.stripe = global.Stripe(this.props.token);
-    if (metricsConnection) {
-      restoreStripeTracking(this.stripe, metricsConnection);
-      metricsConnection = null;
-    }
     this.setState({ ready: true }, this.props.onLoad);
   }
 
