@@ -1,3 +1,4 @@
+/* eslint "react/no-unused-prop-types": "off" */
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
@@ -56,9 +57,8 @@ class StripeComponent extends PureComponent {
   }
 
   // Override this method for bank components
-  getValue() {
-    return this.props.stripe.createToken();
-  }
+  // For example: `return this.props.stripe.createToken();``
+  getValue() { return Promise.resolve(); }
 
   // this method is a no-op and needed for integration purposes only
   setValue() {}
