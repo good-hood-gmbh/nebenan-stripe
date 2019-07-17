@@ -14,7 +14,7 @@ class StripeCard extends StripeComponent {
   }
 
   getPaymentConfirmation(secret) {
-    return this.props.stripe.stripe.handleCardAction(secret);
+    return this.props.stripe.handleCardAction(secret);
   }
 
   render() {

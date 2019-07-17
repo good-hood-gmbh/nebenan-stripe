@@ -1,6 +1,8 @@
 import React, { PureComponent, createRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { bindTo } from '../../../lib/utils';
+
 import Header from '../../components/header';
 
 import Stripe from '../../../lib/stripe';
@@ -12,10 +14,14 @@ class StripePreview extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.handleUpdateToken = this.handleUpdateToken.bind(this);
-    this.handleCard = this.handleCard.bind(this);
-    this.handleIban = this.handleIban.bind(this);
+    bindTo(this,
+      'handleUpdateToken',
+      'handleCard',
+      'handleCardSecurity',
+      'handleIban',
+    );
 
+    this.secret = createRef();
     this.card = createRef();
     this.iban = createRef();
 
@@ -40,13 +46,20 @@ class StripePreview extends PureComponent {
 
   handleCard() {
     const complete = (...args) => console.warn('card', ...args);
-    console.warn('attempting to tokenize card');
+    console.warn('attempting to get payment intent for the card');
     this.card.current.getValue().then(complete).catch(complete);
+  }
+
+  handleCardSecurity() {
+    const { value: secret } = this.secret.current;
+    const complete = (...args) => console.warn('cardSecurity', ...args);
+    console.warn('attempting to get through card security using secret', secret);
+    this.card.current.getPaymentConfirmation(secret).then(complete).catch(complete);
   }
 
   handleIban() {
     const complete = (...args) => console.warn('iban', ...args);
-    console.warn('attempting to tokenize iban');
+    console.warn('attempting to get payment source for the iban');
     this.iban.current.getValue().then(complete).catch(complete);
   }
 
@@ -80,11 +93,18 @@ class StripePreview extends PureComponent {
           </label>
         </div>
 
+        <div className="preview-section">
+          <label className="ui-label">Client secret for card security
+            <input className="ui-input" type="text" ref={this.secret} />
+          </label>
+        </div>
+
         <Stripe token={token} onError={this.handleError} key={token}>
           <div className="preview-section">
             <StripeCard ref={this.card} label="Credit card" />
             <p>
-              <span className="ui-button ui-button-primary" onClick={this.handleCard}>Pay</span>
+              <span className="ui-button ui-button-primary" onClick={this.handleCard}>Pay with card</span>
+              <span className="ui-button ui-button-danger" onClick={this.handleCardSecurity}>Test card security</span>
             </p>
           </div>
 
@@ -95,7 +115,7 @@ class StripePreview extends PureComponent {
               options={ibanOptions}
             />
             <p>
-              <span className="ui-button ui-button-primary" onClick={this.handleIban}>Pay</span>
+              <span className="ui-button ui-button-primary" onClick={this.handleIban}>Pay with IBAN</span>
             </p>
           </div>
         </Stripe>

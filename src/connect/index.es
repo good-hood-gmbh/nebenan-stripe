@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Elements, injectStripe } from 'react-stripe-elements';
@@ -7,39 +7,25 @@ const cssSrc = 'https://fonts.googleapis.com/css?family=Open+Sans';
 const fonts = [{ cssSrc }];
 
 
-export default (WrappedComponent) => {
-  const InjectedComponent = injectStripe(WrappedComponent, { withRef: true });
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+const connectStripe = (Component) => {
+  const WithReference = ({ forwardedRef, ...props }) => <Component {...props} ref={forwardedRef} />;
+  const WithStripe = injectStripe(WithReference);
 
-  class StripeForm extends PureComponent {
-    getWrappedInstance() {
-      return this.proxiedRef.getWrappedInstance();
-    }
+  const WithElements = (props, context) => {
+    const locale = context.localeData && context.localeData.type;
+    return <Elements {...{ locale, fonts }}><WithStripe {...props} /></Elements>;
+  };
 
-    getValue() {
-      return this.getWrappedInstance().getValue();
-    }
-
-    render() {
-      const { localeData: data } = this.context;
-
-      let locale;
-      if (data) locale = data.type;
-
-      return (
-        <Elements {...{ locale, fonts }}>
-          <InjectedComponent {...this.props} ref={(el) => { this.proxiedRef = el; }} />
-        </Elements>
-      );
-    }
-  }
-
-  StripeForm.contextTypes = {
+  WithElements.contextTypes = {
     localeData: PropTypes.object,
   };
 
-  StripeForm.displayName = `StripeForm(${displayName})`;
-  StripeForm.WrappedComponent = WrappedComponent;
+  const displayName = Component.displayName || Component.name || 'Component';
+  const WrappedComponent = (props, ref) => <WithElements {...props} forwardedRef={ref} />;
+  WrappedComponent.displayName = `connectStripe(${displayName})`;
+  WrappedComponent.WrappedComponent = Component;
 
-  return StripeForm;
+  return forwardRef(WrappedComponent);
 };
+
+export default connectStripe;
