@@ -1,5 +1,5 @@
 import React, { PureComponent, createRef } from 'react';
-import PropTypes from 'prop-types';
+import International from 'nebenan-react-hocs/lib/i18n';
 
 import { bindTo } from '../../../lib/utils';
 
@@ -8,6 +8,11 @@ import Header from '../../components/header';
 import Stripe from '../../../lib/stripe';
 import StripeCard from '../../../lib/stripe_card';
 import StripeIBAN from '../../../lib/stripe_iban';
+
+const staticLocale = {
+  type: 'de',
+  dictionary: {},
+};
 
 
 class StripePreview extends PureComponent {
@@ -27,14 +32,6 @@ class StripePreview extends PureComponent {
 
     this.state = {
       token: 'pk_test_whatever',
-    };
-  }
-
-  getChildContext() {
-    return {
-      localeData: {
-        type: 'de',
-      },
     };
   }
 
@@ -81,51 +78,49 @@ class StripePreview extends PureComponent {
     };
 
     return (
-      <article className="preview-markdown">
-        <Header>Stripe</Header>
+      <International locale={staticLocale}>
+        <article className="preview-markdown">
+          <Header>Stripe</Header>
 
-        <div className="preview-section">
-          <label className="ui-label">Enter token
-            <input
-              className="ui-input" type="text"
-              value={token} onChange={this.handleUpdateToken}
-            />
-          </label>
-        </div>
-
-        <div className="preview-section">
-          <label className="ui-label">Client secret for card security
-            <input className="ui-input" type="text" ref={this.secret} />
-          </label>
-        </div>
-
-        <Stripe token={token} onError={this.handleError} key={token}>
           <div className="preview-section">
-            <StripeCard ref={this.card} label="Credit card" />
-            <p>
-              <span className="ui-button ui-button-primary" onClick={this.handleCard}>Pay with card</span>
-              <span className="ui-button ui-button-danger" onClick={this.handleCardSecurity}>Test card security</span>
-            </p>
+            <label className="ui-label">Enter token
+              <input
+                className="ui-input" type="text"
+                value={token} onChange={this.handleUpdateToken}
+              />
+            </label>
           </div>
 
           <div className="preview-section">
-            <StripeIBAN
-              ref={this.iban} label="Bank account"
-              owner={owner}
-              options={ibanOptions}
-            />
-            <p>
-              <span className="ui-button ui-button-primary" onClick={this.handleIban}>Pay with IBAN</span>
-            </p>
+            <label className="ui-label">Client secret for card security
+              <input className="ui-input" type="text" ref={this.secret} />
+            </label>
           </div>
-        </Stripe>
-      </article>
+
+          <Stripe token={token} onError={this.handleError} key={token}>
+            <div className="preview-section">
+              <StripeCard ref={this.card} label="Credit card" />
+              <p>
+                <span className="ui-button ui-button-primary" onClick={this.handleCard}>Pay with card</span>
+                <span className="ui-button ui-button-danger" onClick={this.handleCardSecurity}>Test card security</span>
+              </p>
+            </div>
+
+            <div className="preview-section">
+              <StripeIBAN
+                ref={this.iban} label="Bank account"
+                owner={owner}
+                options={ibanOptions}
+              />
+              <p>
+                <span className="ui-button ui-button-primary" onClick={this.handleIban}>Pay with IBAN</span>
+              </p>
+            </div>
+          </Stripe>
+        </article>
+      </International>
     );
   }
 }
-
-StripePreview.childContextTypes = {
-  localeData: PropTypes.object,
-};
 
 export default StripePreview;

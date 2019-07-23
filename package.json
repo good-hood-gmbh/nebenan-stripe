@@ -61,6 +61,8 @@
     "mocha": "^6.1.4",
     "morgan": "^1.9.1",
     "nebenan-ui-kit": "^2.6.0",
+    "nebenan-form": "^5.0.0",
+    "nebenan-react-hocs": "^4.0.0",
     "nodemon": "^1.19.1",
     "normalize.css": "^8.0.1",
     "postcss-flexbugs-fixes": "^4.0.0",
@@ -79,6 +81,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "classnames": "^2.2.6",
+    "nebenan-form": "^5.0.0",
+    "nebenan-react-hocs": "^4.0.0",
     "nebenan-ui-kit": "^2.5.0"
   },
   "dependencies": {
