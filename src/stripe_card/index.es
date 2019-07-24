@@ -10,11 +10,11 @@ import StripeComponent from '../base';
 
 class StripeCard extends StripeComponent {
   getValue() {
-    return this.props.stripe.createPaymentMethod('card');
+    return this.props.stripe.createToken();
   }
 
   getPaymentConfirmation(secret) {
-    return this.props.stripe.handleCardAction(secret);
+    return this.props.stripe.handleCardPayment(secret);
   }
 
   render() {

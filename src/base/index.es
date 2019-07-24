@@ -61,8 +61,8 @@ class StripeComponent extends PureComponent {
     return this.props.name;
   }
 
-  // Override this method for bank components
-  // For example: `return this.props.stripe.createToken();``
+  // Override this method to tokenize the payment element
+  // For example: `return this.props.stripe.createToken();`
   getValue() { return Promise.resolve(); }
 
   // this method is a no-op and needed for integration purposes only
