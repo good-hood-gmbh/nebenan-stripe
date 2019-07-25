@@ -31,6 +31,10 @@ class Stripe extends PureComponent {
     };
   }
 
+  getStripeInstance() {
+    return this.stripe;
+  }
+
   handleLoad() {
     this.stripe = global.Stripe(this.props.token);
     this.setState({ ready: true }, this.props.onLoad);
