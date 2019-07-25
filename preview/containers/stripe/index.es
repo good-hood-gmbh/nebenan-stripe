@@ -43,7 +43,7 @@ class StripePreview extends PureComponent {
 
   handleCard() {
     const complete = (...args) => console.warn('card', ...args);
-    console.warn('attempting to get payment intent for the card');
+    console.warn('attempting to get payment token for the card');
     this.card.current.getValue().then(complete).catch(complete);
   }
 
