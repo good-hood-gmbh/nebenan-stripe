@@ -1,5 +1,7 @@
+/* eslint "react/no-unused-prop-types": "off" */
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import FormContext from 'nebenan-form/lib/form/context';
 
 import { bindTo, invoke } from '../utils';
 
@@ -17,11 +19,11 @@ class StripeComponent extends PureComponent {
 
   componentDidMount() {
     this.isComponentMounted = true;
-    if (this.isConnected()) this.context.form.addInput(this);
+    if (this.isConnected()) this.getFormContext().addInput(this);
   }
 
   componentWillUnmount() {
-    if (this.isConnected()) this.context.form.removeInput(this);
+    if (this.isConnected()) this.getFormContext().removeInput(this);
     this.isComponentMounted = false;
   }
 
@@ -30,6 +32,10 @@ class StripeComponent extends PureComponent {
       isPristine: true,
       error: null,
     };
+  }
+
+  getFormContext() {
+    return this.context;
   }
 
   getDefaultOptions() {
@@ -55,10 +61,9 @@ class StripeComponent extends PureComponent {
     return this.props.name;
   }
 
-  // Override this method for bank components
-  getValue() {
-    return this.props.stripe.createToken();
-  }
+  // Override this method to tokenize the payment element
+  // For example: `return this.props.stripe.createToken();`
+  getValue() { return Promise.resolve(); }
 
   // this method is a no-op and needed for integration purposes only
   setValue() {}
@@ -69,7 +74,7 @@ class StripeComponent extends PureComponent {
 
     const complete = () => {
       invoke(this.props.onError, this.getError());
-      if (this.isConnected()) this.context.form.updateValidity();
+      if (this.isConnected()) this.getFormContext().updateValidity();
       invoke(done);
     };
 
@@ -83,7 +88,7 @@ class StripeComponent extends PureComponent {
   }
 
   isConnected() {
-    return Boolean(this.context.form && this.getName());
+    return Boolean(this.getFormContext() && this.getName());
   }
 
   isValid() {
@@ -110,9 +115,7 @@ class StripeComponent extends PureComponent {
   }
 }
 
-StripeComponent.contextTypes = {
-  form: PropTypes.object,
-};
+StripeComponent.contextType = FormContext;
 
 StripeComponent.propTypes = {
   stripe: PropTypes.object.isRequired,
