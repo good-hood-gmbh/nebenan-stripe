@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import Script from 'react-load-script';
@@ -46,7 +46,7 @@ class Stripe extends PureComponent {
     // Idiotic StripeProvider requires content to be a single child
     return (
       <StripeProvider stripe={this.stripe}>
-        <Fragment>{this.props.children}</Fragment>
+        <>{this.props.children}</>
       </StripeProvider>
     );
   }
@@ -55,10 +55,10 @@ class Stripe extends PureComponent {
     const { onError } = this.props;
     const content = this.renderContent();
     return (
-      <Fragment>
+      <>
         <Script {...{ url, onError }} onLoad={this.handleLoad} />
         {content}
-      </Fragment>
+      </>
     );
   }
 }
