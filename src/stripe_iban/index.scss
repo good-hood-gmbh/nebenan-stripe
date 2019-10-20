@@ -1,0 +1,18 @@
+.c-stripe_iban {
+  display: block;
+  cursor: text;
+
+  .ui-input {
+    padding: 10px;
+    pointer-events: auto;
+  }
+
+  .ui-label {
+    margin-bottom: 5px;
+    display: block;
+
+    &:empty {
+      display: none;
+    }
+  }
+}
