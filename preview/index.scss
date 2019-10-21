@@ -18,12 +18,3 @@ main {
 .preview-section {
   margin-top: 30px;
 }
-
-[class^='icon-']::before,
-[class*=' icon-']::before {
-  width: 1em;
-  height: 1em;
-  content: '';
-  display: inline-block;
-  background: $color-red-00;
-}
