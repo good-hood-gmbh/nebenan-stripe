@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-stripe",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-stripe/issues",
-  "version": "5.0.1",
+  "version": "6.0.0-beta.0",
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install && npm run decache",
     "decache": "find ./build -type f -name '.browserify-cache.json' -delete || echo \"\\033[0;32mAlready decached!\\033[0m\"",
@@ -64,7 +64,7 @@
     "nebenan-form": "^7.0.1",
     "nebenan-helpers": "^4.0.0",
     "nebenan-react-hocs": "^5.2.1",
-    "nebenan-ui-kit": "^3.0.1",
+    "nebenan-ui-kit": "^4.0.0-beta.0",
     "node-sass-glob-importer": "^5.3.2",
     "nodemon": "^1.19.2",
     "normalize.css": "^8.0.1",
@@ -95,7 +95,7 @@
     "classnames": "^2.2.6",
     "nebenan-form": "^7.0.0",
     "nebenan-react-hocs": "^5.2.1",
-    "nebenan-ui-kit": "^3.0.0",
+    "nebenan-ui-kit": "^4.0.0-beta.0",
     "node-sass-glob-importer": "^5.3.2",
     "sass-functions": "^1.2.0"
   },
