@@ -43,7 +43,7 @@ class StripeComponent extends PureComponent {
       style: {
         base: {
           fontFamily: '"Open Sans", "Helvetica Neue", Arial, sans-serif',
-          fontSize: '14px',
+          fontSize: '16px',
           lineHeight: 1.3,
         },
         invalid: {
