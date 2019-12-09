@@ -104,6 +104,7 @@ class StripePreview extends PureComponent {
                 <span className="ui-button ui-button-primary" onClick={this.handleCard}>Pay with card</span>
                 <span className="ui-button ui-button-danger" onClick={this.handleCardSecurity}>Test card security</span>
               </p>
+              <StripeCard label="Credit card disabled" disabled />
             </div>
 
             <div className="preview-section">
@@ -115,6 +116,12 @@ class StripePreview extends PureComponent {
               <p>
                 <span className="ui-button ui-button-primary" onClick={this.handleIban}>Pay with IBAN</span>
               </p>
+              <StripeIBAN
+                label="Bank account disabled"
+                owner={owner}
+                options={ibanOptions}
+                disabled
+              />
             </div>
           </Stripe>
         </article>
