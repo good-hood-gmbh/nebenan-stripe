@@ -39,7 +39,10 @@ class StripeComponent extends PureComponent {
   }
 
   getDefaultOptions() {
+    const { disabled } = this.props;
+
     return {
+      disabled,
       style: {
         base: {
           fontFamily: '"Open Sans", "Helvetica Neue", Arial, sans-serif',
@@ -120,6 +123,7 @@ StripeComponent.contextType = FormContext;
 StripeComponent.propTypes = {
   stripe: PropTypes.object.isRequired,
   name: PropTypes.string,
+  disabled: PropTypes.bool,
 
   onUpdate: PropTypes.func,
   onError: PropTypes.func,
