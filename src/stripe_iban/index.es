@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { IbanElement } from 'react-stripe-elements';
 
@@ -28,8 +28,8 @@ class StripeIBAN extends StripeComponent {
     const { label, options, children } = this.props;
     const error = this.getError();
 
-    const className = classNames('c-stripe_iban', this.props.className);
-    const inputClassName = classNames('ui-input', { 'ui-input-error': error });
+    const className = clsx('c-stripe_iban', this.props.className);
+    const inputClassName = clsx('ui-input', { 'ui-input-error': error });
     const paymentProps = { ...this.getDefaultOptions(), ...options };
 
     let labelNode;
