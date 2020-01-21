@@ -99,7 +99,7 @@ class StripePreview extends PureComponent {
 
           <Stripe token={token} onError={this.handleError} key={token}>
             <div className="preview-section">
-              <StripeCard ref={this.card} label="Credit card" />
+              <StripeCard className="custom-class-card" ref={this.card} label="Credit card" />
               <p>
                 <span className="ui-button ui-button-primary" onClick={this.handleCard}>Pay with card</span>
                 <span className="ui-button ui-button-danger" onClick={this.handleCardSecurity}>Test card security</span>
@@ -109,6 +109,7 @@ class StripePreview extends PureComponent {
 
             <div className="preview-section">
               <StripeIBAN
+                className="custom-class-iban"
                 ref={this.iban} label="Bank account"
                 owner={owner}
                 options={ibanOptions}
