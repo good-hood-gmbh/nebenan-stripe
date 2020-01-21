@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { CardElement } from 'react-stripe-elements';
 
@@ -21,8 +21,8 @@ class StripeCard extends StripeComponent {
     const { label, children } = this.props;
     const error = this.getError();
 
-    const className = classNames('c-stripe_card', this.props.className);
-    const inputClassName = classNames('ui-input', { 'ui-input-error': error });
+    const className = clsx('c-stripe_card', this.props.className);
+    const inputClassName = clsx('ui-input', { 'ui-input-error': error });
     const paymentProps = this.getDefaultOptions();
 
     let labelNode;
