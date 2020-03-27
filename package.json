@@ -50,7 +50,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "errorhandler": "^1.5.1",
     "eslint": "^6.7.2",
-    "eslint-config-nebenan": "^1.0.2",
+    "eslint-config-nebenan": "^1.2.1",
     "express": "^4.17.1",
     "fibers": "^4.0.2",
     "gulp": "^4.0.2",
