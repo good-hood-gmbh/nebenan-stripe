@@ -1,5 +1,5 @@
-import React, { PureComponent, createRef } from 'react';
-import International from 'nebenan-react-hocs/lib/i18n';
+import { PureComponent, createRef } from 'react';
+import International from 'i18n-polyglot';
 
 import { bindTo } from '../../../lib/utils';
 
