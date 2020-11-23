@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Consumer } from 'nebenan-react-hocs/lib/i18n';
 
 import { Elements, injectStripe } from 'react-stripe-elements';
