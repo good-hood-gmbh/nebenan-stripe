@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { Consumer } from 'nebenan-react-hocs/lib/i18n';
+import { useLocale } from 'i18n-polyglot';
 
 import { Elements, injectStripe } from 'react-stripe-elements';
 
@@ -12,15 +12,12 @@ const connectStripe = (Component) => {
   const WithStripe = injectStripe(WithReference);
 
   const WrappedComponent = (props, ref) => {
-    const renderProp = (context) => {
-      const locale = context && context.locale && context.locale.type;
-      return (
-        <Elements {...{ locale, fonts }}>
-          <WithStripe {...props} forwardedRef={ref} />
-        </Elements>
-      );
-    };
-    return <Consumer>{renderProp}</Consumer>;
+    const locale = useLocale()?.type;
+    return (
+      <Elements {...{ locale, fonts }}>
+        <WithStripe {...props} forwardedRef={ref} />
+      </Elements>
+    );
   };
 
   const displayName = Component.displayName || Component.name || 'Component';
